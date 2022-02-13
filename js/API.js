@@ -11,7 +11,7 @@ async fetchPopular (category, ranking, page=1) {
     });
     const data = await res.json();
     return data;
-    }
+}
 
 async search (category, searchString, page=1) {
     const res = await fetch(`${this.url}/search/${category}?api_key=${this.key}&language=uk-UA&query=${searchString}&page=${page}`, {
