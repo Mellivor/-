@@ -92,5 +92,16 @@
   background-color: rgba(0, 0, 0, 0.842);
 }
 .loaderContainer.shown {
-  display: flex;
+    display: flex;
+    position: fixed;
+}
+
+i {
+    font-size: 2rem;
+    transition: color 1.5s ease-out;
+}
+.red {
+    transition: color 1.5s ease-out;
+    color: rgb(153, 26, 26);
+
 }

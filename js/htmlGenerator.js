@@ -1,13 +1,7 @@
-export const paginationBlock = () => {
-    return `
-        <button type="button" class="btn btn-primary loadMore">Load more</button>
-    `
-    // return `<div class="btn-group mr-1" role="group" aria-label="Basic example">
-    //     <button type="button" class="btn btn-primary loadMore">Load more</button>
-    // </div>`
-}
+export const paginationBlock = () => "<button type=\"button\" class=\"btn btn-primary loadMore\">Load more</button>"
 
- export const elemToHtml = ({ title, overview, poster, date, reit }) => {
+
+ export const elemToHtml = ({ title, overview, poster, date, reit, id }) => {
     const defaultPoster = "https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie-1-3.jpg"
     return `<div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
@@ -28,8 +22,7 @@ export const paginationBlock = () => {
                <span class="fw-bolder">Короткий опис:</span> ${overview}
             </li>
 
-            <i class="fa-solid fa-heart"></i>
-
+            <i class="fa-solid fa-heart-crack " id = "${id}"></i>
         </ul>
       </div>
     </div>
