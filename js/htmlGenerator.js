@@ -34,7 +34,7 @@ export const elemToHtml = ({ title, overview, poster, date, reit, id }) => {
 
 export const headerHtml = () => {
     return `
-    <header class="p-2 bg-dark text-white sticky-top">
+    <header class="p-2 bg-dark text-white ${window.matchMedia("(min-width: 993px)").matches ? "sticky-top":null} ">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-between">
                     <ul class="nav col-lg-auto  justify-content-center me-2">
@@ -59,7 +59,7 @@ export const headerHtml = () => {
                     <div>
                     <button type="button" class="btn btn-outline-light m-1">Bookmarks</button>
                     </div>
-                    <div class=" flex-fill serch-bloc d-flex justify-content-center">
+                    <div class="${window.matchMedia("(min-width: 993px)").matches ? null:"w-50"} flex-fill serch-bloc d-flex justify-content-center">
                     <form class="  me-2">
                         <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" id = "searchInput">
                     </form>
