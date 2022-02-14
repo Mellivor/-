@@ -1,21 +1,18 @@
 import Api from "./API.js"
 import {paginationBlock , elemToHtml, headerHtml} from "./htmlGenerator.js"
-
+import {arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add ,shown } from "./controlStrings.js"
 
 ADDHtmlToDom( document.querySelector(".allapp"), headerHtml())
-const tvProgram = "tv"
-const movie = "movie"
+
 const wrapper = document.querySelector(".app")
 const form = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > form")
 const radioForm = document.querySelector("body > div.allapp > header > div > div > div:nth-child(2) > form")
 const input = document.querySelector("#searchInput")
 const header = document.querySelector("body > div.allapp > header")
 const movieButton = document.querySelector("body > div > header > div > div > ul > li:nth-child(1) > a")
-const serialButton = document.querySelector("body > div > header > div > div > ul > li:nth-child(2) > a")
+const serialButton = document.querySelector("body > div.allapp > header > div > div > ul > li:nth-child(2) > a")
 const searchButton = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > button")
 const loader = document.querySelector("#loader")
-const top_rated = "top_rated"
-const popular = "popular"
 
 const preventDefault = (event) => {
 if (event.target === movieButton || event.target ===serialButton || event.target ===searchButton) {
@@ -23,12 +20,14 @@ if (event.target === movieButton || event.target ===serialButton || event.target
     };
 }
 
-const ButtonLogic = (event, correctElement, category, radioValue, popString, topstring) => {
+const ButtonLogic = (event, correctElement, category, radioValue ) => {
     if (event.target === correctElement) {
-        if (radioValue.inlineRadioOptions.value == "popular") {
-            fatchingAndInsertAll(category, popString, null ,null, insertHtmlToDom)
-        } else if (radioValue.inlineRadioOptions.value == "topRated") {
-            fatchingAndInsertAll(category, topstring, null ,null, insertHtmlToDom)
+        if (radioValue.inlineRadioOptions.value == popular) {
+            console.log(popular);
+            fatchingAndInsertAll(category, popular, null ,null, insertHtmlToDom)
+        } else if (radioValue.inlineRadioOptions.value == top_rated) {
+            console.log(top_rated);
+            fatchingAndInsertAll(category, top_rated, null ,null, insertHtmlToDom)
         }
     }
 }
@@ -44,16 +43,34 @@ const likeDizlikeLogiSwitch = (target ,classListArray) => {
     classListArray.forEach( (e)=>toggleClass(target, e))
 }
 
+const localStorageLogic = (key, value) => {
+    if (!localStorage.getItem(key)) {
+            const bookArr = [value]
+            localStorage.setItem(key, JSON.stringify(bookArr))
+        } else {
+            const bookArr = JSON.parse(localStorage.getItem(key))
+            if (bookArr.includes(value)) {
+                const filtredArr = bookArr.filter((item) => (item != value))
+                console.log(filtredArr);
+                localStorage.setItem(key, JSON.stringify(filtredArr))
+            } else {
+                bookArr.push(value)
+                localStorage.setItem(key, JSON.stringify(bookArr))
+            }
+        }
+}
+
 wrapper.addEventListener("click", (e) => {
-    if (e.target.tagName == "I") {
-        likeDizlikeLogiSwitch(e.target, ["fa-heart-crack", "fa-heart", "red"])
+    if (e.target.tagName == tegI) {
+        likeDizlikeLogiSwitch(e.target, clasesArr)
+        localStorageLogic(arrName, e.target.id)
     }
 })
 
 header.addEventListener("click", (e) => {
     preventDefault(e)
-    ButtonLogic(e, movieButton, movie, radioForm, popular, top_rated)
-    ButtonLogic(e, serialButton, tvProgram, radioForm, popular, top_rated)
+    ButtonLogic(e, movieButton, movie, radioForm)
+    ButtonLogic(e, serialButton, tvProgram, radioForm)
     searchLogoc(e)
 })
 
@@ -111,21 +128,21 @@ const chooseFatchApi = async (category, rank, searchString, page) => {
     }
 }
 
-function toggleClass(target, className, method = "toggle") {
-    if (method == "toggle") {
+function toggleClass(target, className, method = toggle) {
+    if (method == toggle) {
         target.classList.toggle(className)
-    } else if (method == "remove") {
+    } else if (method == remove) {
         target.classList.remove(className)
-    } else if (method == "add") {
+    } else if (method == add) {
         target.classList.add(className)
     }
 }
 
 const startLoad = () => {
-        toggleClass(loader, "shown", "add")
+        toggleClass(loader, shown, add)
 }
 const endLoad = () => {
-    toggleClass(loader, "shown", "remove")
+    toggleClass(loader, shown, remove)
 }
 
 const fatchingAndInsertAll = async (category, rank, searchString, page, insertMethod) => {

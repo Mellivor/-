@@ -1,7 +1,9 @@
+import { arrName } from "./controlStrings.js"
+
 export const paginationBlock = () => "<button type=\"button\" class=\"btn btn-primary loadMore\">Load more</button>"
 
 
- export const elemToHtml = ({ title, overview, poster, date, reit, id }) => {
+export const elemToHtml = ({ title, overview, poster, date, reit, id }) => {
     const defaultPoster = "https://motivatevalmorgan.com/wp-content/uploads/2016/06/default-movie-1-3.jpg"
     return `<div class="card mb-3" style="max-width: 540px;">
   <div class="row g-0">
@@ -22,7 +24,7 @@ export const paginationBlock = () => "<button type=\"button\" class=\"btn btn-pr
                <span class="fw-bolder">Короткий опис:</span> ${overview}
             </li>
 
-            <i class="fa-solid fa-heart-crack " id = "${id}"></i>
+            ${liceState(id)}
         </ul>
       </div>
     </div>
@@ -35,15 +37,15 @@ export const headerHtml = () => {
     <header class="p-2 bg-dark text-white sticky-top">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-between">
-                    <ul class="nav col-lg-auto  justify-content-center mb-md-0">
+                    <ul class="nav col-lg-auto  justify-content-center me-2">
                         <li><a href="#" class="nav-link px-2 text-white">Movies</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">TV</a></li>
                     </ul>
                     <div class=" text-center  me-lg-auto">
                         <form class="radio-form">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="topRated" value="topRated" >
-                                <label class="form-check-label" for="topRated">Top Rated</label>
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="top_rated" value="top_rated" >
+                                <label class="form-check-label" for="top_rated">Top Rated</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="popular" value="popular" checked>
@@ -69,4 +71,10 @@ export const headerHtml = () => {
         <div class="app container mt-2">
         </div>
     `
+}
+const liceState = (id) => {
+    if (JSON.parse(localStorage.getItem(arrName).includes(id))){
+        return `<i class="fa-solid fa-heart  red" id = "${id}"></i>`
+    }
+    return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
 }
