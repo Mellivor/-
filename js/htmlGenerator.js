@@ -32,14 +32,14 @@ export const paginationBlock = () => "<button type=\"button\" class=\"btn btn-pr
 
 export const headerHtml = () => {
     return `
-    <header class="p-3 bg-dark text-white sticky-top">
+    <header class="p-2 bg-dark text-white sticky-top">
             <div class="container">
-                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <ul class="nav col-3 col-lg-auto  mb-2 justify-content-center mb-md-0">
+                <div class="d-flex flex-wrap align-items-center justify-content-between">
+                    <ul class="nav col-lg-auto  justify-content-center mb-md-0">
                         <li><a href="#" class="nav-link px-2 text-white">Movies</a></li>
                         <li><a href="#" class="nav-link px-2 text-white">TV</a></li>
                     </ul>
-                    <div class="flex-fill text-center  me-lg-auto">
+                    <div class=" text-center  me-lg-auto">
                         <form class="radio-form">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="inlineRadioOptions" id="topRated" value="topRated" >
@@ -52,13 +52,16 @@ export const headerHtml = () => {
                         </form>
                     </div>
                     <div class="flex-fill text-center  me-lg-auto ">
-                        <h1>MelliMovie PoC</h1>
+                        <h1 class="fs-3">MelliMovie PoC</h1>
                     </div>
-                    <form class="col-4 col-lg-auto mb-lg-0 me-lg-3">
-                        <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                    <div>
+                    <button type="button" class="btn btn-outline-light m-1">Bookmarks</button>
+                    </div>
+                    <div class=" flex-fill serch-bloc d-flex justify-content-center">
+                    <form class="  me-2">
+                        <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" id = "searchInput">
                     </form>
-                    <div class="text-end">
-                        <button type="button" class="btn btn-outline-light me-3">Search</button>
+                        <button type="button" class="btn btn-outline-light">Search</button>
                     </div>
                 </div>
             </div>

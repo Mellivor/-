@@ -105,3 +105,9 @@ i {
     color: rgb(153, 26, 26);
 
 }
+
+@media (max-width: 521px){
+    h1 {
+        display: none;
+    }
+}

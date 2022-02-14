@@ -6,13 +6,13 @@ ADDHtmlToDom( document.querySelector(".allapp"), headerHtml())
 const tvProgram = "tv"
 const movie = "movie"
 const wrapper = document.querySelector(".app")
-const form = document.querySelector("body > div > header > div > div > form")
-const radioForm = document.querySelector("body > div > header > div > div > div:nth-child(2) > form")
-const input = document.querySelector("body > div > header > div > div > form > input")
-const header = document.querySelector("body > div > header")
+const form = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > form")
+const radioForm = document.querySelector("body > div.allapp > header > div > div > div:nth-child(2) > form")
+const input = document.querySelector("#searchInput")
+const header = document.querySelector("body > div.allapp > header")
 const movieButton = document.querySelector("body > div > header > div > div > ul > li:nth-child(1) > a")
 const serialButton = document.querySelector("body > div > header > div > div > ul > li:nth-child(2) > a")
-const searchButton = document.querySelector("body > div > header > div > div > div.text-end > button")
+const searchButton = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > button")
 const loader = document.querySelector("#loader")
 const top_rated = "top_rated"
 const popular = "popular"
@@ -40,20 +40,16 @@ const searchLogoc = (event) => {
     }
 }
 
+const likeDizlikeLogiSwitch = (target ,classListArray) => {
+    classListArray.forEach( (e)=>toggleClass(target, e))
+}
+
 wrapper.addEventListener("click", (e) => {
     if (e.target.tagName == "I") {
-        if (e.target.classList.contains("fa-heart-crack")) {
-            toggleClass(e.target, "fa-heart-crack", "remove")
-            toggleClass(e.target, "fa-heart", "add")
-            toggleClass(e.target, "red", "add")
-        } else {
-            toggleClass(e.target, "fa-heart", "remove")
-            toggleClass(e.target, "fa-heart-crack", "add")
-            toggleClass(e.target, "red", "remove")
-            console.log(e.target.id);
-        }
+        likeDizlikeLogiSwitch(e.target, ["fa-heart-crack", "fa-heart", "red"])
     }
 })
+
 header.addEventListener("click", (e) => {
     preventDefault(e)
     ButtonLogic(e, movieButton, movie, radioForm, popular, top_rated)
@@ -115,11 +111,13 @@ const chooseFatchApi = async (category, rank, searchString, page) => {
     }
 }
 
-function toggleClass(target, className, method) {
-    if (method == "add") {
-        target.classList.add(className)
+function toggleClass(target, className, method = "toggle") {
+    if (method == "toggle") {
+        target.classList.toggle(className)
     } else if (method == "remove") {
         target.classList.remove(className)
+    } else if (method == "add") {
+        target.classList.add(className)
     }
 }
 
