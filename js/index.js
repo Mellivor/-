@@ -23,10 +23,8 @@ if (event.target === movieButton || event.target ===serialButton || event.target
 const ButtonLogic = (event, correctElement, category, radioValue ) => {
     if (event.target === correctElement) {
         if (radioValue.inlineRadioOptions.value == popular) {
-            console.log(popular);
             fatchingAndInsertAll(category, popular, null ,null, insertHtmlToDom)
         } else if (radioValue.inlineRadioOptions.value == top_rated) {
-            console.log(top_rated);
             fatchingAndInsertAll(category, top_rated, null ,null, insertHtmlToDom)
         }
     }

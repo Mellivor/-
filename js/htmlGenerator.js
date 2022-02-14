@@ -73,8 +73,11 @@ export const headerHtml = () => {
     `
 }
 const liceState = (id) => {
-    if (JSON.parse(localStorage.getItem(arrName).includes(id))){
+    if (!localStorage.getItem(arrName)) {
+        return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
+    } else if (JSON.parse(localStorage.getItem(arrName).includes(id))) {
         return `<i class="fa-solid fa-heart  red" id = "${id}"></i>`
+    } else {
+        return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
     }
-    return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
 }
