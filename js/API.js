@@ -21,5 +21,14 @@ async search (category, searchString, page=1) {
     return data;
 }
 
+
+async searchId (id) {
+    const res = await fetch(`${this.url}/account/multi?api_key=${this.key}&query=${id}`, {
+        method: "GET"
+    });
+    const data = await res.json();
+    return data;
+}
+
 }
 export default new Api();

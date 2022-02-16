@@ -24,7 +24,7 @@ export const elemToHtml = ({ title, overview, poster, date, reit, id }) => {
                <span class="fw-bolder">Короткий опис:</span> ${overview}
             </li>
 
-            ${liceState(id)}
+            ${liceState(title, overview, poster, date, reit, id)}
         </ul>
       </div>
     </div>
@@ -57,7 +57,7 @@ export const headerHtml = () => {
                         <h1 class="fs-3">MelliMovie PoC</h1>
                     </div>
                     <div>
-                    <button type="button" class="btn btn-outline-light m-1">Bookmarks</button>
+                    <button type="button" class="btn btn-outline-light m-1" id="bookmarksButt">Bookmarks</button>
                     </div>
                     <div class="${window.matchMedia("(min-width: 993px)").matches ? null:"w-50"} flex-fill serch-bloc d-flex justify-content-center">
                     <form class="  me-2">
@@ -72,12 +72,34 @@ export const headerHtml = () => {
         </div>
     `
 }
-const liceState = (id) => {
+const liceState = (title, overview, poster, date, reit, id) => {
     if (!localStorage.getItem(arrName)) {
-        return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
-    } else if (JSON.parse(localStorage.getItem(arrName).includes(id))) {
-        return `<i class="fa-solid fa-heart  red" id = "${id}"></i>`
+        return `<i class="fa-solid fa-heart-crack "
+        data-elem-title="${title}"
+        data-elem-overview="${overview}"
+        data-elem-poster="${poster}"
+        data-elem-date="${date}"
+        data-elem-reit ="${reit}"
+        data-elem-id ="${id}"
+        ></i>`
+    } else if (JSON.parse(localStorage.getItem(arrName)).some((i) =>i.id == id)) {
+        return `<i class="fa-solid fa-heart red"
+        data-elem-title="${title}"
+        data-elem-overview="${overview}"
+        data-elem-poster="${poster}"
+        data-elem-date="${date}"
+        data-elem-reit ="${reit}"
+        data-elem-id ="${id}"
+        ></i>`
     } else {
-        return `<i class="fa-solid fa-heart-crack " id = "${id}"></i>`
+        return `<i class="fa-solid fa-heart-crack "
+        data-elem-title="${title}"
+        data-elem-overview="${overview}"
+        data-elem-poster="${poster}"
+        data-elem-date="${date}"
+        data-elem-reit ="${reit}"
+        data-elem-id ="${id}" >
+        </i>`
+
     }
 }

@@ -1,6 +1,6 @@
 import Api from "./API.js"
 import {paginationBlock , elemToHtml, headerHtml} from "./htmlGenerator.js"
-import {arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add ,shown } from "./controlStrings.js"
+import {arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add ,shown,dataAttributes, bookM } from "./controlStrings.js"
 
 ADDHtmlToDom( document.querySelector(".allapp"), headerHtml())
 
@@ -13,11 +13,22 @@ const movieButton = document.querySelector("body > div > header > div > div > ul
 const serialButton = document.querySelector("body > div.allapp > header > div > div > ul > li:nth-child(2) > a")
 const searchButton = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > button")
 const loader = document.querySelector("#loader")
+const bookmarksButt = document.querySelector("#bookmarksButt")
 
 const preventDefault = (event) => {
 if (event.target === movieButton || event.target ===serialButton || event.target ===searchButton) {
         event.preventDefault()
     };
+}
+
+const bookmarksLogic = (event) => {
+    if ((event.target === bookmarksButt || event.target.getAttribute(bookM)) && localStorage.getItem(arrName)) {
+        const bookmarksArr = JSON.parse(localStorage.getItem(arrName))
+        insertHtmlToDom(wrapper, transformDataToHtml({ results: bookmarksArr }))
+        document.querySelectorAll(tegI).forEach(e => e.setAttribute(bookM, bookM))
+    } else if (event.target.getAttribute(bookM) && !localStorage.getItem(arrName)) {
+        insertHtmlToDom(wrapper,"")
+    }
 }
 
 const ButtonLogic = (event, correctElement, category, radioValue ) => {
@@ -47,10 +58,14 @@ const localStorageLogic = (key, value) => {
             localStorage.setItem(key, JSON.stringify(bookArr))
         } else {
             const bookArr = JSON.parse(localStorage.getItem(key))
-            if (bookArr.includes(value)) {
-                const filtredArr = bookArr.filter((item) => (item != value))
-                console.log(filtredArr);
-                localStorage.setItem(key, JSON.stringify(filtredArr))
+            if (bookArr.some((i) =>i.id == value.id)) {
+                    const filtredArr = bookArr.filter((item) => (item.id != value.id))
+                    if (filtredArr.length < 1) {
+                        localStorage.removeItem(key)
+                        console.log(remove);
+                    } else {
+                        localStorage.setItem(key, JSON.stringify(filtredArr))
+                    }
             } else {
                 bookArr.push(value)
                 localStorage.setItem(key, JSON.stringify(bookArr))
@@ -61,7 +76,19 @@ const localStorageLogic = (key, value) => {
 wrapper.addEventListener("click", (e) => {
     if (e.target.tagName == tegI) {
         likeDizlikeLogiSwitch(e.target, clasesArr)
-        localStorageLogic(arrName, e.target.id)
+        localStorageLogic(arrName,
+            {
+                title: e.target.getAttribute(dataAttributes.title),
+                overview: e.target.getAttribute(dataAttributes.overview),
+                poster: e.target.getAttribute(dataAttributes.poster),
+                date: e.target.getAttribute(dataAttributes.date),
+                reit: e.target.getAttribute(dataAttributes.reit),
+                id: e.target.getAttribute(dataAttributes.id),
+
+            })
+        if (e.target.getAttribute("bookM")) {
+            bookmarksLogic(e)
+        }
     }
 })
 
@@ -70,6 +97,7 @@ header.addEventListener("click", (e) => {
     ButtonLogic(e, movieButton, movie, radioForm)
     ButtonLogic(e, serialButton, tvProgram, radioForm)
     searchLogoc(e)
+    bookmarksLogic(e)
 })
 
 form.addEventListener("submit", (e) => {
@@ -88,24 +116,25 @@ const objToStandart = (obj) => {
         newObj.date = obj.release_date;
         newObj.reit = obj.vote_average;
         newObj.id =obj.id;
-    } else {
+    } else if (obj.original_name) {
         newObj.title = obj.original_name;
         newObj.overview = obj.overview;
         newObj.poster = obj.poster_path;
         newObj.date = obj.first_air_date;
         newObj.reit = obj.vote_average;
         newObj.id = obj.id;
-    }
+    } else return obj
     return newObj
 }
-const transformDataToHtml = ({results, total_pages, page}) => {
+function transformDataToHtml({ results, total_pages, page }) {
     const html = results.reduce((acc, item) => {
-    acc += elemToHtml(objToStandart(item));
-    return acc;
+        acc += elemToHtml(objToStandart(item))
+        return acc
     }, "")
     if (total_pages != page && total_pages > 0) {
         return html + paginationBlock()
-    } else html
+    } else
+        html
     return html
 }
 
