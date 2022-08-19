@@ -16,5 +16,6 @@ export const dataAttributes = {
     poster:"data-elem-poster",
     date:"data-elem-date",
     reit:"data-elem-reit",
-    id:"data-elem-id",
+    id: "data-elem-id",
+    section: "data-elem-section",
 }
