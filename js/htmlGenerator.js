@@ -95,7 +95,7 @@ export const bigCard = ({ title, overview, poster, date, reit, id, title2, runti
     console.log(title);
     return `
 <div class="card mb-3">
-        <div class="row g-0" data-movie-id = "${id}">
+        <div class="row g-0 big_card" data-movie-id = "${id}">
             <div class="col-md-4 ">
                 <img src="${!poster ? defaultPoster : "https://www.themoviedb.org/t/p/w300_and_h450_bestv2"+poster}" class="w-100 img-fluid rounded-start" alt="${title}poster">
             </div>

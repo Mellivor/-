@@ -12,7 +12,10 @@ export function insertHtmlToDom(target, html) {
 }
 
 export function transformDataToHtml({ results, total_pages, page }) {
-    debugger;
+        if (!results) {
+            return null;
+        };
+
         const html = results.reduce((acc, item) => {
             acc += elemToHtml(objToStandard(item))
             return acc
@@ -20,7 +23,7 @@ export function transformDataToHtml({ results, total_pages, page }) {
         if (total_pages != page && total_pages > 0) {
             return html + paginationBlock()
         } else
-            html
+            // html
         return html
 };
 
@@ -28,6 +31,7 @@ const objToStandard = (obj) => {
     const newObj = {};
 
     if (obj.number_of_episodes) {
+        newObj.section = tvProgram;
         newObj.title = obj.name;
         newObj.episodes = obj.number_of_episodes;
         newObj.seasons = obj.number_of_seasons;
@@ -44,6 +48,7 @@ const objToStandard = (obj) => {
     }
 
     if (obj.genres) {
+        newObj.section = movie;
         newObj.title = obj.original_title;
         newObj.title2 = obj.title;
         newObj.overview = obj.overview;

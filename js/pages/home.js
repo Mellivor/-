@@ -29,7 +29,8 @@ export function Home(root) {
 
     const ButtonLogic = (event, correctElement, category, radioValue) => {
         if (event.target === correctElement) {
-            window.history.pushState(null, null, `/${category}?category=${radioValue.inlineRadioOptions.value}`);
+            window.history.pushState(null, null, `/${category}?${radioValue.inlineRadioOptions.value}`);
+            // window.history.pushState(null, null, `/${category}?category=${radioValue.inlineRadioOptions.value}`);
         };
     };
 
@@ -78,9 +79,17 @@ export function Home(root) {
             if (e.target.getAttribute("bookM")) {
                 bookmarksLogic(e)
             }
-        } else {
-            let id = e.path.find(e => e.getAttribute("data-movie-id")).getAttribute("data-movie-id");
-            let section  = e.path.find(e => e.getAttribute(dataAttributes.section)).getAttribute(dataAttributes.section);
+
+        // } else if (!!e.path.find(e => e.classList.contains("big_card"))) {
+        } else if (window.location.search.replace('?', "") === top_rated ||
+            window.location.search.replace('?', "") === popular ||
+            window.location.pathname.includes('/bookmarks')
+            ) {
+            // console.log(!!e.path.find(e => e.classList.contains("big_card")));
+            console.log(e.path);
+            // debugger;
+            let id = e.path.find(e => e.hasAttribute("data-movie-id")).getAttribute("data-movie-id");
+            let section  = e.path.find(e => e.hasAttribute(dataAttributes.section)).getAttribute(dataAttributes.section);
             window.history.pushState(null, null, `/${section}?${id}`);
         }
     });
