@@ -23,7 +23,6 @@ export function transformDataToHtml({ results, total_pages, page }) {
         if (total_pages != page && total_pages > 0) {
             return html + paginationBlock()
         } else
-            // html
         return html
 };
 
@@ -126,7 +125,6 @@ const chooseFatchApi = async (category, rank, searchString, page) => {
 };
 
 let renderBigBanner = (fatchingResult, insertMethod, wrapper) => {
-    console.log(objToStandard(fatchingResult));
     insertMethod(wrapper, bigCard( objToStandard(fatchingResult)));
     endLoad();
 };
@@ -134,8 +132,6 @@ let renderBigBanner = (fatchingResult, insertMethod, wrapper) => {
 export const fatchingAndInsertAll = async (wrapper, category, rank, searchString, page, insertMethod, byId) => {
     startLoad();
     const fatchingResult = await chooseFatchApi(category, rank, searchString, page);
-    console.log(fatchingResult.results);
-    console.log(fatchingResult);
     if (!byId) {
         insertMethod(wrapper, transformDataToHtml(fatchingResult));
         endLoad();

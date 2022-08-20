@@ -37,7 +37,7 @@ const routes = [
 class Router {
     constructor(routes) {
         this._routes = routes;
-        // this.reroute();
+        this.reroute();
         window.history.pushState = (data, title, url) => {
             History.prototype.pushState.apply(window.history, [data, title, url]);
             this.reroute();
@@ -50,7 +50,6 @@ class Router {
     reroute() {
         const matchedRouts = this._routes.find(route => {
             const matched = route.match(window.location.pathname);
-            console.log(window.location.pathname.includes('movie'));
             return matched
 
         });
@@ -59,7 +58,3 @@ class Router {
 };
 
 const router = new Router(routes);
-
-router.reroute();
-
-//

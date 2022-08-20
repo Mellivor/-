@@ -5,16 +5,8 @@ class Api {
         this.key = "cab0b107c1583b3f1d9262d17e4ef69a"
     };
 
-    // async fetchById (category, ranking, page=1) {
-    //     const res = await fetch(`${this.url}/${category}/${ranking}?api_key=${this.key}&language=uk-UA`, {
-    //         method: "GET"
-    //     });
-    //     const data = await res.json();
-    //     return data;
-    // };
 
     async fetchPopular (category, ranking, page=1) {
-        // const res = await fetch(`${this.url}/${category}/${ranking}?api_key=${this.key}&language=uk-UA&page=${page}`, {
         const res = await fetch(`${this.url}/${category}/${ranking}?api_key=${this.key}&language=uk-UA&page=${page}`, {
             method: "GET"
         });

@@ -1,6 +1,6 @@
-import { ADDHtmlToDom , insertHtmlToDom , transformDataToHtml, fatchingAndInsertAll, likeToggle } from "../helpers/rotModificators.js"
-import {paginationBlock , elemToHtml, headerHtml} from "../htmlGenerator.js"
-import { arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add, shown, dataAttributes, bookM } from "../controlStrings.js"
+import { insertHtmlToDom , likeToggle } from "../helpers/rotModificators.js"
+import { headerHtml} from "../htmlGenerator.js"
+import { arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, dataAttributes, bookM } from "../controlStrings.js"
 
 export function Home(root) {
     insertHtmlToDom(root, headerHtml());
@@ -30,7 +30,6 @@ export function Home(root) {
     const ButtonLogic = (event, correctElement, category, radioValue) => {
         if (event.target === correctElement) {
             window.history.pushState(null, null, `/${category}?${radioValue.inlineRadioOptions.value}`);
-            // window.history.pushState(null, null, `/${category}?category=${radioValue.inlineRadioOptions.value}`);
         };
     };
 
@@ -78,14 +77,11 @@ export function Home(root) {
                 bookmarksLogic(e)
             }
 
-        // } else if (!!e.path.find(e => e.classList.contains("big_card"))) {
         } else if (window.location.search.replace('?', "") === top_rated ||
             window.location.search.replace('?', "") === popular ||
-            window.location.pathname.includes('/bookmarks')
+            window.location.pathname.includes('/bookmarks') ||
+            window.location.pathname.includes('/search')
             ) {
-            // console.log(!!e.path.find(e => e.classList.contains("big_card")));
-            console.log(e.path);
-            // debugger;
             let id = e.path.find(e => e.hasAttribute("data-movie-id")).getAttribute("data-movie-id");
             let section  = e.path.find(e => e.hasAttribute(dataAttributes.section)).getAttribute(dataAttributes.section);
             window.history.pushState(null, null, `/${section}?${id}`);
@@ -102,30 +98,7 @@ export function Home(root) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault()
-        window.history.pushState(null, null, `/${input.value}`);
-        fatchingAndInsertAll(movie, null, input.value, null, insertHtmlToDom)
-        input.value = ""
+        window.history.pushState(null, null, `/search/?${input.value}`);
     });
 
 };
-// export const Home = () => {
-//     ADDHtmlToDom(root, headerHtml());
-// };
-// export const Home = () => {
-//     // insertHtmlToDom(root, headerHtml())
-//     // const wrapper = document.querySelector(".app")
-//     // const form = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > form")
-//     // const radioForm = document.querySelector("body > div.allapp > header > div > div > div:nth-child(2) > form")
-//     // const input = document.querySelector("#searchInput")
-//     // const header = document.querySelector("body > div.allapp > header")
-//     // const moviesButton = document.querySelector("body > div > header > div > div > ul > li:nth-child(1) > a")
-//     // const serialButton = document.querySelector("body > div.allapp > header > div > div > ul > li:nth-child(2) > a")
-//     // const searchButton = document.querySelector("body > div.allapp > header > div > div > div.flex-fill.serch-bloc.d-flex.justify-content-center > button")
-//     // const loader = document.querySelector("#loader")
-//     // const bookmarksButt = document.querySelector("#bookmarksButt")
-//     // radioForm.addEventListener("change",()=>console.log("urauraura"))
-//     insertHtmlToDom(root, '<h1>Start page</h1>')
-
-
-
-// }

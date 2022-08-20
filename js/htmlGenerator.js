@@ -92,7 +92,6 @@ export const headerHtml = () => {
 
 
 export const bigCard = ({ title, overview, poster, date, reit, id, title2, runtime, vote_count, budget, genres, section, seasons ,episodes }) => {
-    console.log(title);
     return `
 <div class="card mb-3">
         <div class="row g-0 big_card" data-movie-id = "${id}">

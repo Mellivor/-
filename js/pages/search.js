@@ -1,6 +1,6 @@
 import { Home } from "./home.js";
 import { insertHtmlToDom, fatchingAndInsertAll } from "../helpers/rotModificators.js"
-import { popular, top_rated, movie } from "../controlStrings.js"
+import { movie } from "../controlStrings.js"
 
 export function Search(root) {
     Home(root);

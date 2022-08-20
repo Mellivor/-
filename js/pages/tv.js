@@ -1,6 +1,6 @@
 import { Home } from "./home.js";
 import { insertHtmlToDom, transformDataToHtml, fatchingAndInsertAll } from "../helpers/rotModificators.js"
-import { arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add, shown, dataAttributes, bookM } from "../controlStrings.js"
+import { popular, top_rated, tvProgram } from "../controlStrings.js"
 
 export function Tv(root) {
     Home(root);
