@@ -12,7 +12,7 @@ const routes = [
             renderRoute: Home,
         },
         {
-            match: (url) => url === '/bookmarks',
+            match: (url) => url.includes('/bookmarks'),
             renderRoute: Bookmarks,
         },
             // {
