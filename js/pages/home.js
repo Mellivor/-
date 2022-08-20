@@ -23,19 +23,19 @@ export function Home(root) {
 
     const bookmarksLogic = (event) => {
         if ((event.target === bookmarksButt || event.target.getAttribute(bookM)) && localStorage.getItem(arrName)) {
-            window.history.pushState(null, null, '/Movis_info_app/bookmarks');
+            window.history.pushState(null, null, '/bookmarks');
         }
     };
 
     const ButtonLogic = (event, correctElement, category, radioValue) => {
         if (event.target === correctElement) {
-            window.history.pushState(null, null, `/Movis_info_app/${category}?category=${radioValue.inlineRadioOptions.value}`);
+            window.history.pushState(null, null, `/${category}?category=${radioValue.inlineRadioOptions.value}`);
         };
     };
 
     const searchLogic = (event) => {
         if (event.target === searchButton && input.value) {
-            window.history.pushState(null, null, `/Movis_info_app/search/?q=${input.value}`);
+            window.history.pushState(null, null, `/search/?q=${input.value}`);
             fatchingAndInsertAll(movie, null, input.value, null, insertHtmlToDom)
             input.value = ""
         }
@@ -81,7 +81,7 @@ export function Home(root) {
         } else {
             let id = e.path.find(e => e.getAttribute("data-movie-id")).getAttribute("data-movie-id");
             let section  = e.path.find(e => e.getAttribute(dataAttributes.section)).getAttribute(dataAttributes.section);
-            window.history.pushState(null, null, `/Movis_info_app/${section}?${id}`);
+            window.history.pushState(null, null, `/${section}?${id}`);
         }
     });
 
@@ -95,7 +95,7 @@ export function Home(root) {
 
     form.addEventListener("submit", (e) => {
         e.preventDefault()
-        window.history.pushState(null, null, `/Movis_info_app/search/${input.value}`);
+        window.history.pushState(null, null, `/${input.value}`);
         fatchingAndInsertAll(movie, null, input.value, null, insertHtmlToDom)
         input.value = ""
     });
