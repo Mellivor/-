@@ -36,10 +36,8 @@ export function Home(root) {
 
     const searchLogic = (event) => {
         if (event.target === searchButton && input.value) {
-            window.history.pushState(null, null, `/search/?q=${input.value}`);
-            fatchingAndInsertAll(movie, null, input.value, null, insertHtmlToDom)
-            input.value = ""
-        }
+            window.history.pushState(null, null, `/search/?${input.value}`);
+        };
     };
 
     const localStorageLogic = (key, value) => {

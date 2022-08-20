@@ -1,6 +1,6 @@
 import Api from "../API.js"
 import { paginationBlock, elemToHtml, bigCard } from "../htmlGenerator.js"
-import { arrName, popular, top_rated, movie, tvProgram, clasesArr, tegI, toggle, remove, add, shown, dataAttributes, bookM } from "../controlStrings.js"
+import { movie, tvProgram, toggle, remove, add, shown } from "../controlStrings.js"
 
 
 export function ADDHtmlToDom(target, html) {

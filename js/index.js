@@ -3,6 +3,7 @@ import { NotFound } from "./pages/not_found.js"
 import { Bookmarks } from "./pages/bookmarks.js"
 import { Movies } from "./pages/movies.js"
 import { Tv } from "./pages/tv.js"
+import { Search } from "./pages/search.js"
 
 const root = document.querySelector(".allapp")
 
@@ -15,10 +16,10 @@ const routes = [
             match: (url) => url.includes('/bookmarks'),
             renderRoute: Bookmarks,
         },
-            // {
-        //     match: (url) => url === '/search',
-        //     renderRoute: TopRated,
-        // },
+        {
+            match: (url) => url.includes('/search'),
+            renderRoute: Search,
+        },
         {
             match: (url) => url.includes('/movie'),
             renderRoute: Movies,
