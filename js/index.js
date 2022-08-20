@@ -8,7 +8,7 @@ const root = document.querySelector(".allapp")
 
 const routes = [
         {
-            match: (url) => url === '/',
+            match: (url) => url === '/Movis_info_app/',
             renderRoute: Home,
         },
         {
